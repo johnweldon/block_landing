@@ -18,26 +18,26 @@ func main() {
 
 func index(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(template.New("index").Parse(indexTemplate))
-	t.Execute(w, NewBlock(r, DefaultAdmin))
+	t.Execute(w, newBlock(r, defaultAdmin))
 }
 
-type Person struct {
+type person struct {
 	Name  string
 	Email string
 	Phone string
 }
 
-type Block struct {
+type block struct {
 	Category    string
 	OriginalURL string
 	ClientIP    string
 	QueryParams map[string][]string
 	URL         *url.URL
 	Request     *http.Request
-	Admin       *Person
+	Admin       *person
 }
 
-func NewBlock(r *http.Request, admin *Person) Block {
+func newBlock(r *http.Request, admin *person) block {
 	url := r.URL
 	query := r.URL.Query()
 	category := ""
@@ -52,7 +52,7 @@ func NewBlock(r *http.Request, admin *Person) Block {
 	if len(query["clientip"]) > 0 {
 		clientip = query["clientip"][0]
 	}
-	return Block{
+	return block{
 		Category:    category,
 		OriginalURL: original,
 		ClientIP:    clientip,
@@ -63,7 +63,7 @@ func NewBlock(r *http.Request, admin *Person) Block {
 	}
 }
 
-var DefaultAdmin = &Person{Name: "John Weldon", Email: "johnweldon4@gmail.com", Phone: "503-941-0825"}
+var defaultAdmin = &person{Name: "John Weldon", Email: "johnweldon4@gmail.com", Phone: "503-941-0825"}
 
 const indexTemplate = `
 <html>
