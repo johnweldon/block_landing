@@ -1,8 +1,6 @@
-FROM golang
+FROM golang:alpine
 
 ADD . /go/src/github.com/johnweldon/block_landing
-
-RUN go get github.com/codegangsta/negroni
 
 RUN go install github.com/johnweldon/block_landing
 
