@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='UTF-8'>
+  <title>Block {{ .Category }} [{{ .OriginalURL }}]</title>
+  <link href='app.css' rel='stylesheet' />
+  <script src='app.js'></script>
+  <!--[if gte IE 9]>
+  <style type="text/css">
+  .gradient { filter: none; }
+  </style><![endif]-->
+</head>
+
+<body class='gradient'>
+
+  <div id='main'>
+    <div class='header'></div>
+    <h1>Blocked</h1>
+    <h3>Category "{{ .Category }}"</h3>
+    <p>
+      The url you requested, <span class='url'>{{ .OriginalURL }}</span>, has been deemed inappropriate for this network, because it is classified as <span class='category'>{{ .Category }}</span>.
+    </p>
+
+    {{ with .Admin }}
+    <p>If you would like to request a review, or an exception, please contact:<br/>
+      <a href='mailto:{{ .Email }}'>{{ .Name }}</a><br/>
+      <a href='tel:{{ .Phone }}'>{{ .Phone }}</a>
+    </p>
+    {{ end }}
+
+  </div>
+
+</body>
+
+</html>

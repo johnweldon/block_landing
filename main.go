@@ -8,17 +8,24 @@ import (
 	"github.com/codegangsta/negroni"
 )
 
+// TODO: override with flags
+var admin = &person{Name: "John Weldon", Email: "johnweldon4@gmail.com", Phone: "503-941-0825"}
+
 func main() {
+	serve(":9000")
+}
+
+func serve(port string) {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", index)
 	n := negroni.Classic()
 	n.UseHandler(mux)
-	n.Run(":9000")
+	n.Run(port)
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
-	t := template.Must(template.New("index").Parse(indexTemplate))
-	t.Execute(w, newBlock(r, defaultAdmin))
+	t := template.Must(template.New("index.html").ParseFiles("templates/index.html"))
+	t.Execute(w, newBlock(r, admin))
 }
 
 type person struct {
@@ -62,41 +69,3 @@ func newBlock(r *http.Request, admin *person) block {
 		Admin:       admin,
 	}
 }
-
-var defaultAdmin = &person{Name: "John Weldon", Email: "johnweldon4@gmail.com", Phone: "503-941-0825"}
-
-const indexTemplate = `
-<html>
-
-<head>
-<title>Intercept {{ .OriginalURL }}</title>
-<link href='app.css' rel='stylesheet' />
-<script src='app.js'></script>
-</head>
-
-<body>
-
-<div id='main'>
-<div class='header'></div>
-<h1>Blocked</h1>
-<p>The url you requested, <span class='url'>{{ .OriginalURL }}</span>, has been deemed inappropriate for this network,
-because it is classified as <span class='category'>{{ .Category }}</span>.</p>
-
-{{ with .Admin }}
-<p>If you would like to request a review, or an exception, please contact:<br/>
-<a href='mailto:{{ .Email }}'>{{ .Name }}</a><br/>
-<a href='tel:{{ .Phone }}'>{{ .Phone }}</a>
-</p>
-{{ end }}
-
-</div>
-
-<div id='raw'>
-{{ .Request.URL }}
-
-{{ printf "%#v" .Request }}
-</div>
-
-</body>
-</html>
-`
