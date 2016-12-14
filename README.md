@@ -23,3 +23,7 @@ This webserver expects the url format to be:
 As it is now, the visual appearance is specific to my family.
 You'd probably want to tweak the CSS and possibly the HTML template to suit your environment.
 Unless you just like the picture of my family.
+
+## Dependencies
+
+Go dependencies are vendored with [gvt](github.com/FiloSottile/gvt)

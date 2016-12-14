@@ -1,0 +1,13 @@
+{
+	"version": 0,
+	"dependencies": [
+		{
+			"importpath": "github.com/urfave/negroni",
+			"repository": "https://github.com/urfave/negroni",
+			"vcs": "git",
+			"revision": "cd9734011043904139c24dbad9a71b21f1586f36",
+			"branch": "master",
+			"notests": true
+		}
+	]
+}

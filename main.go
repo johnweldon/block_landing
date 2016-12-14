@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"text/template"
 
-	"github.com/codegangsta/negroni"
+	"github.com/urfave/negroni"
 )
 
 // TODO: override with flags
