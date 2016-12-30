@@ -18,7 +18,7 @@ func main() {
 func serve(port string) {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", index)
-	n := negroni.New(negroni.NewRecovery(), negroni.NewLogger(), negroni.NewStatic(http.Dir("public")))
+	n := negroni.New(negroni.NewRecovery(), &logger{}, negroni.NewStatic(http.Dir("public")))
 	n.UseHandler(mux)
 	n.Run(port)
 }
