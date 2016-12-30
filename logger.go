@@ -21,7 +21,7 @@ func (l *logger) ServeHTTP(rw http.ResponseWriter, r *http.Request, next http.Ha
 	ipv := net.ParseIP(ip)
 	fwd := r.Header.Get("x-forwarded-for")
 	fmt.Printf("\n%s IP: %s %s\n", time.Now().Format(time.RFC3339), ipv, fwd)
-	fmt.Printf("  started %s %s\n", r.Method, r.URL.Path)
+	fmt.Printf("  started %s %s\n", r.Method, r.URL.String())
 
 	next(rw, r)
 
