@@ -11,12 +11,16 @@ To deploy the image so that it's persistent you can use the `deploy` target in t
 ## Url format
 
 This webserver expects the url format to be:
-`http://example.com/?target=%t&uri=%u&clientip=%a`
+`http://example.com/?target=%t&requesturl=%u&clientip=%a&clientdomain=%n&userid=%i&source=%s`
 
  * `%t` is the squidGuard replacement code for "target category"; usually the name of the blocked category.
  * `%u` is the originally requested URL.
  * `%a` is the IP address of the client - it's not displayed now, but it could be if you modified the code.
+ * `%n` is the client domain name if available.
+ * `%i` is the user id if available.
+ * `%s` is the source group as configured by squidguard.
 
+See [squidguard](www.squidguard.org/Doc/redirect.html) docs for url parameter explanation.
 
 ## Visual appearance
 

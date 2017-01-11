@@ -1,12 +1,18 @@
 #!/bin/bash
 
-export SCRIPTDIR="$(cd "$(dirname "$0")"; pwd -P)"
+NAME=block_landing
+IMAGE=block_landing
+HOST="block.example.com"
+SYSLOGHOST=169.254.10.10
+PORT=9000
 
-docker rm -v -f block_landing
-
+docker rm -v -f ${NAME}
 docker run -d \
-  --name block_landing \
-  --restart=always \
-  -p 9000:9000 \
-  -v ${SCRIPTDIR}:/var/www \
-  block_landing
+    --name ${NAME} \
+    --restart=always \
+    -e BLOCK_PORT=8999 \
+    -e BLOCK_SYSLOG_HOST=${SYSLOGHOST} \
+    -h ${HOST} \
+    -p ${PORT}:8999 \
+  ${IMAGE}
+
